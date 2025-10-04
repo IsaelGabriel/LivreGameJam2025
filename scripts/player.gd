@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+# Player state machine
+
 const SPEED = 20
 
 var movement_input: Vector2
