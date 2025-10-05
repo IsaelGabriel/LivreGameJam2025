@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://bbmivx7w4uwp6"]
+
+[ext_resource type="Script" uid="uid://dtv04ne1okr0w" path="res://scripts/items/item_resource.gd" id="1_020ot"]
+[ext_resource type="Texture2D" uid="uid://ccai5i8expqvq" path="res://thirdparty/kenney_assets/kenney_generic-items/PNG/Colored/genericItem_color_093.png" id="2_020ot"]
+
+[resource]
+script = ExtResource("1_020ot")
+item_name = &"seringe"
+sprite = ExtResource("2_020ot")
+spin = true
+metadata/_custom_type_script = "uid://dtv04ne1okr0w"

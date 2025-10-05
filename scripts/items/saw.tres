@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://c84dw3nj168ew"]
+
+[ext_resource type="Script" uid="uid://dtv04ne1okr0w" path="res://scripts/items/item_resource.gd" id="1_pidho"]
+[ext_resource type="Texture2D" uid="uid://8e2ufwecvd0y" path="res://thirdparty/kenney_assets/kenney_generic-items/PNG/Colored/genericItem_color_016.png" id="2_pidho"]
+
+[resource]
+script = ExtResource("1_pidho")
+item_name = &"saw"
+sprite = ExtResource("2_pidho")
+spin = true
+collide_with_ball = false
+damage = 2
+metadata/_custom_type_script = "uid://dtv04ne1okr0w"
