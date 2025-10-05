@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dda6cja1fko3s"]
+
+[ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
+[ext_resource type="Texture2D" uid="uid://copo22duf2rnf" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/face_d.png" id="2_7ykc4"]
+[ext_resource type="Texture2D" uid="uid://dunm6wfj5kglu" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_open.png" id="3_pu3yx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ykc4"]
+radius = 38.013157
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+
+[node name="Visuals" type="Node2D" parent="Player"]
+
+[node name="Body" type="Sprite2D" parent="Player/Visuals"]
+texture = ExtResource("1_w2twt")
+
+[node name="Face" type="Sprite2D" parent="Player/Visuals"]
+texture = ExtResource("2_7ykc4")
+
+[node name="Hands" type="Node2D" parent="Player/Visuals"]
+
+[node name="RightHand" type="Sprite2D" parent="Player/Visuals/Hands"]
+position = Vector2(65, 30)
+texture = ExtResource("3_pu3yx")
+
+[node name="LeftHand" type="Sprite2D" parent="Player/Visuals/Hands"]
+position = Vector2(-65, 30)
+texture = ExtResource("3_pu3yx")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_7ykc4")
