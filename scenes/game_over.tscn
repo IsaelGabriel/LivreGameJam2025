@@ -2446,6 +2446,8 @@ text = "Pressione [color=green]q u a l q u e r [/color] tecla para continuar..."
 fit_content = true
 horizontal_alignment = 1
 
-[node name="SceneTransitioner" type="Node" parent="."]
+[node name="SceneTransitioner" type="Node" parent="." node_paths=PackedStringArray("text")]
 script = ExtResource("5_7m3ot")
+wait = 1.25
 next_scene = ExtResource("6_v3hpu")
+text = NodePath("../Text2")
