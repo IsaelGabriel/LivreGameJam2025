@@ -7,3 +7,9 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("p_dash"):
 		character_signal.emit('dash')
+
+
+func _on_pickup_area_body_entered(body: Node2D) -> void:
+	if body is Item and item.is_empty():
+		if body.is_item_pickable():
+			pickup.emit(body)

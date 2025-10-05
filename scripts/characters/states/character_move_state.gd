@@ -15,3 +15,7 @@ func _on_character_signal(command: StringName):
 	if(command == 'dash'):
 		transitioned.emit(self, 'dash')
 	
+
+
+func _on_player_pickup(item: Item) -> void:
+	character.set_item(item.item_name, item)

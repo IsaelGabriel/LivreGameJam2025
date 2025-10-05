@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckab6ulfkg1vh"]
+[gd_scene load_steps=4 format=3 uid="uid://ckab6ulfkg1vh"]
 
 [ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="1_7s4qf"]
+[ext_resource type="Script" uid="uid://bmbitldemnpjq" path="res://scripts/items/ball.gd" id="1_cxlvu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7s4qf"]
 radius = 13.038404
 
 [node name="Ball" type="RigidBody2D" groups=["ball", "item"]]
 gravity_scale = 0.0
+script = ExtResource("1_cxlvu")
+item_name = &"ball"
+metadata/_custom_type_script = "uid://d126nfck0w3k6"
 
 [node name="Visuals" type="Node2D" parent="."]
 
