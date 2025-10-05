@@ -867,7 +867,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_6wevv"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 16
+physics_layer_0/collision_mask = 16
 sources/2 = SubResource("TileSetAtlasSource_18nlu")
 sources/3 = SubResource("TileSetAtlasSource_6wevv")
 
@@ -1297,8 +1298,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_mngbo"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 2
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 8
 sources/2 = SubResource("TileSetAtlasSource_c1pb6")
 sources/3 = SubResource("TileSetAtlasSource_e1cbu")
 
@@ -2144,8 +2145,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_r6p65"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 16
+physics_layer_0/collision_mask = 16
 sources/2 = SubResource("TileSetAtlasSource_mngbo")
 sources/3 = SubResource("TileSetAtlasSource_4w45t")
 
@@ -2981,6 +2982,8 @@ tile_set = SubResource("TileSet_r6p65")
 
 [node name="Enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("face", "hands", "animator")]
 position = Vector2(550, 504)
+collision_layer = 2
+collision_mask = 26
 script = ExtResource("3_xdqt8")
 face = NodePath("Visuals/Face")
 hands = NodePath("Visuals/Hands")
@@ -3056,6 +3059,7 @@ metadata/_custom_type_script = "uid://258id666tgxc"
 [node name="Throw" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("target", "character")]
 script = ExtResource("15_to7gp")
 throw_force = 550.0
+throw_offset = 75.0
 target = NodePath("../../../Player")
 ball_prefab = ExtResource("10_6wevv")
 character = NodePath("../..")
@@ -3074,6 +3078,7 @@ shape = SubResource("CircleShape2D_mngbo")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("face", "hands", "animator")]
 position = Vector2(550, 1021)
+collision_mask = 49
 script = ExtResource("1_gubc5")
 face = NodePath("Visuals/Face")
 face_weight = 1.75
@@ -3176,6 +3181,5 @@ zoom = Vector2(0.5, 0.5)
 [node name="Ball" parent="." instance=ExtResource("10_6wevv")]
 position = Vector2(548, 876)
 
-[connection signal="body_entered" from="Enemy/PickupArea" to="Enemy" method="_on_pickup_area_body_entered"]
 [connection signal="pickup" from="Player" to="Player/StateMachine/Move" method="_on_player_pickup"]
 [connection signal="body_entered" from="Player/PickupArea" to="Player" method="_on_pickup_area_body_entered"]
