@@ -4,7 +4,8 @@ class_name Ball
 @export var max_pickup_velocity: float = 20.0
 
 func _process(_delta: float) -> void:
-	modulate = lerp(Color.WHITE, Color.RED, (linear_velocity.length() - max_pickup_velocity) / max_pickup_velocity)
+	modulate = lerp(Color.WHITE, Color.RED, clampf((linear_velocity.length() - max_pickup_velocity) / max_pickup_velocity, 0.0, 1.0))
+
 
 func is_item_pickable() -> bool:
 	return linear_velocity.length() <= max_pickup_velocity
@@ -21,8 +22,7 @@ func set_team(team: StringName):
 func _on_collision(body: Node):
 	if body is Character:
 		var damageable: Damageable = body.get_node('Damageable')
-		if damageable and modulate.b < 0.5 and not damageable.invincible:
-			print(linear_velocity)
+		if damageable and not damageable.invincible:
 			damageable.take_damage()
 			damageable.knockback.emit((body.position - position).normalized())
 			queue_free()
