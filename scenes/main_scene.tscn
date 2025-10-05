@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=44 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://csppqhl7itvul" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_closed.png" id="11_mngbo"]
 [ext_resource type="Script" uid="uid://b5m0wu034wb2p" path="res://scripts/characters/states/character_wait_state.gd" id="12_58gk3"]
 [ext_resource type="Texture2D" uid="uid://d123qj31oxjuk" path="res://thirdparty/kenney_assets/kenney_ui-pack/PNG/Red/Default/arrow_decorative_e_small.png" id="13_si52b"]
+[ext_resource type="Script" uid="uid://xxpuxc62iteh" path="res://scripts/enemy/states/enemy_throw_state.gd" id="15_to7gp"]
 [ext_resource type="Texture2D" uid="uid://ce3qeycmseiyh" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/red_hand_rock.png" id="17_to7gp"]
 [ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="21_to7gp"]
 
@@ -2987,9 +2988,8 @@ item = &"ball"
 animator = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://t55cssr1l4t8"
 
-[node name="Damageable" type="Node" parent="Enemy" node_paths=PackedStringArray("hearts_ui_container")]
+[node name="Damageable" type="Node" parent="Enemy"]
 script = ExtResource("4_01n6w")
-hearts_ui_container = NodePath("../../UI/PlayerHeartsContainer")
 heart_prefab = ExtResource("5_6u1mn")
 
 [node name="Visuals" type="Node2D" parent="Enemy"]
@@ -3036,7 +3036,8 @@ metadata/_custom_type_script = "uid://bbtrak21ioymu"
 
 [node name="Wait" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("12_58gk3")
-time = 2.0
+time = 0.5
+next_state = &"throw"
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
@@ -3049,6 +3050,14 @@ metadata/_custom_type_script = "uid://258id666tgxc"
 script = ExtResource("7_c16ls")
 dash_duration = 0.3
 dash_speed = 950.0
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://258id666tgxc"
+
+[node name="Throw" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("target", "character")]
+script = ExtResource("15_to7gp")
+throw_force = 550.0
+target = NodePath("../../../Player")
+ball_prefab = ExtResource("10_6wevv")
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
