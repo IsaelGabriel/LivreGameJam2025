@@ -10,3 +10,4 @@ This section credits all thirdparty assets used in the game.
 - [Sports Pack by Kenney](https://kenney.nl/assets/sports-pack)
 - [UI Pack by Kenney](https://kenney.nl/assets/ui-pack)
 - [New Platformer Pack by Kenney](https://kenney.nl/assets/new-platformer-pack)
+- [Generic Items by Kenney](https://kenney.nl/assets/generic-items)
