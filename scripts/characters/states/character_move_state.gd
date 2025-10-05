@@ -10,3 +10,8 @@ func _physics_update_state(delta: float) -> void:
 	
 	
 	character.move_and_slide()
+
+func _on_character_signal(command: StringName):
+	if(command == 'dash'):
+		transitioned.emit(self, 'dash')
+	
