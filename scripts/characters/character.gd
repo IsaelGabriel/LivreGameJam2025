@@ -4,9 +4,6 @@ class_name Character
 signal character_signal(command: StringName)
 signal pickup(item: Item)
 
-@export var speed: float = 20
-@export var acceleration: float = 1.0
-@export var velocity_steer_factor_on_move: float = 1.0
 @export var face: Node2D
 @export var face_weight: float = 1.0
 @export var face_speed: float = 1.0

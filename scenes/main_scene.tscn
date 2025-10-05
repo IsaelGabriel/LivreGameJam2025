@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=30 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
@@ -9,9 +9,11 @@
 [ext_resource type="Script" uid="uid://cius7smr4llga" path="res://scripts/characters/states/character_move_state.gd" id="6_rt2n2"]
 [ext_resource type="Script" uid="uid://ch4qn1210gsa0" path="res://scripts/characters/states/character_dash_state.gd" id="7_c16ls"]
 [ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="7_e1cbu"]
+[ext_resource type="Texture2D" uid="uid://cthhvowol08ch" path="res://thirdparty/kenney_assets/kenney_ui-pack/PNG/Grey/Default/arrow_decorative_n_small.png" id="8_4w45t"]
 [ext_resource type="Texture2D" uid="uid://dymjxfejqg2e5" path="res://thirdparty/kenney_sports-pack/Tilesheet/groundBeige_blue.png" id="8_18nlu"]
 [ext_resource type="PackedScene" uid="uid://ckab6ulfkg1vh" path="res://scenes/ball.tscn" id="10_6wevv"]
 [ext_resource type="Texture2D" uid="uid://csppqhl7itvul" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_closed.png" id="11_mngbo"]
+[ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="12_r6p65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18nlu"]
 texture = ExtResource("8_18nlu")
@@ -2529,7 +2531,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mngbo"]
-radius = 93.13431
+radius = 67.00746
 
 [node name="MainScene" type="Node2D"]
 
@@ -2550,9 +2552,6 @@ tile_set = SubResource("TileSet_r6p65")
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("face", "hands", "animator")]
 position = Vector2(550, 1021)
 script = ExtResource("1_gubc5")
-speed = 350.0
-acceleration = 50.0
-velocity_steer_factor_on_move = 20.0
 face = NodePath("Visuals/Face")
 face_weight = 1.75
 face_speed = 5.0
@@ -2587,7 +2586,16 @@ position = Vector2(-65, 30)
 texture = ExtResource("3_pu3yx")
 flip_h = true
 
+[node name="AimCenter" type="Node2D" parent="Player/Visuals"]
+visible = false
+
+[node name="Aim" type="Sprite2D" parent="Player/Visuals/AimCenter"]
+position = Vector2(0, -76)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("8_4w45t")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+visible = false
 shape = SubResource("CircleShape2D_7ykc4")
 
 [node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("initial_state")]
@@ -2607,6 +2615,15 @@ dash_speed = 950.0
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
+[node name="Aim" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("aim_center", "character")]
+script = ExtResource("12_r6p65")
+aim_center = NodePath("../../Visuals/AimCenter")
+speed = 175.0
+velocity_steer_factor = 15.0
+can_dash = false
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://cius7smr4llga"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
 &"": SubResource("AnimationLibrary_r6p65")
@@ -2615,6 +2632,7 @@ libraries = {
 [node name="PickupArea" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PickupArea"]
+visible = false
 shape = SubResource("CircleShape2D_mngbo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
