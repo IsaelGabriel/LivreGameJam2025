@@ -3,6 +3,7 @@ class_name Damageable
 
 signal took_damage
 signal knockback(direction: Vector2)
+signal has_died
 
 @export var max_hp: int = 3
 @export var hearts_ui_container: Control
@@ -10,7 +11,7 @@ signal knockback(direction: Vector2)
 @export var invincible: bool = false
 
 var current_hp: int = 3
-
+var alive: bool = true
 
 func _ready() -> void:
 	current_hp = max_hp
@@ -20,7 +21,7 @@ func _ready() -> void:
 		hearts_ui_container.add_child(heart)
 
 func take_damage(ammount: int = 1):
-	if invincible: return
+	if invincible or not alive: return
 	current_hp -= ammount
 	if hearts_ui_container and current_hp >= 0:
 		for i in range(ammount):
@@ -28,3 +29,10 @@ func take_damage(ammount: int = 1):
 			heart.queue_free()
 	took_damage.emit()
 	
+	if current_hp <= 0:
+		alive = false
+		has_died.emit()
+		invincible = true
+		
+		
+		
