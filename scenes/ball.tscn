@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckab6ulfkg1vh"]
+
+[ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="1_7s4qf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7s4qf"]
+radius = 9.0
+
+[node name="Ball" type="RigidBody2D" groups=["item"]]
+gravity_scale = 0.0
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1_7s4qf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7s4qf")
