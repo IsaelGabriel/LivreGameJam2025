@@ -3,6 +3,9 @@ class_name Ball
 
 @export var max_pickup_velocity: float = 20.0
 
+func _process(_delta: float) -> void:
+	modulate = lerp(Color.WHITE, Color.RED, (linear_velocity.length() - max_pickup_velocity) / max_pickup_velocity)
+
 func is_item_pickable() -> bool:
 	return linear_velocity.length() <= max_pickup_velocity
 
