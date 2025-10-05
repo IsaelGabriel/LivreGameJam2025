@@ -7,7 +7,7 @@ class_name CharacterMoveState
 @export var can_dash: bool = true
 
 func _update_state(_delta: float) -> void:
-	if character is Player and Input.is_action_pressed("p_aim") and character.item == 'ball':
+	if character is Player and Input.is_action_pressed("p_aim") and not character.item.is_empty():
 		transitioned.emit(self, 'aim')
 
 func _physics_update_state(delta: float) -> void:

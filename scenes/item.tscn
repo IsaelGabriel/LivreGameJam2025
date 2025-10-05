@@ -6,15 +6,18 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_7s4qf"]
 radius = 13.038404
 
-[node name="Ball" type="RigidBody2D" groups=["ball", "item"]]
+[node name="Ball" type="RigidBody2D" node_paths=PackedStringArray("sprite", "visuals") groups=["ball", "item"]]
 collision_layer = 4
 collision_mask = 7
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 100
 linear_damp = 0.3
+angular_velocity = 15.707963
 script = ExtResource("1_cxlvu")
-max_pickup_velocity = 200.0
+max_pickup_velocity = 250.0
+sprite = NodePath("Visuals/Sprite2D")
+visuals = NodePath("Visuals")
 item_name = &"ball"
 metadata/_custom_type_script = "uid://d126nfck0w3k6"
 

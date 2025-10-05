@@ -52,6 +52,7 @@ func shoot() -> void:
 		ball.position = aim_sprite.global_position
 		ball.linear_velocity = Vector2.from_angle(aim_center.rotation) * item_shoot_force
 		ball.set_team('player')
+		ball.set_item(character.item)
 		get_tree().current_scene.add_child(ball)
 		character.set_item('')
 	transitioned.emit(self, 'move')

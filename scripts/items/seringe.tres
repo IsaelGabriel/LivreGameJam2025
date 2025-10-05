@@ -7,5 +7,6 @@
 script = ExtResource("1_020ot")
 item_name = &"seringe"
 sprite = ExtResource("2_020ot")
+sprite_scale = 0.7
 spin = true
 metadata/_custom_type_script = "uid://dtv04ne1okr0w"

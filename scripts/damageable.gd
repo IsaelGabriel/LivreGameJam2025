@@ -19,11 +19,12 @@ func _ready() -> void:
 		var heart = heart_prefab.instantiate()
 		hearts_ui_container.add_child(heart)
 
-func take_damage():
+func take_damage(ammount: int = 1):
 	if invincible: return
-	current_hp -= 1
+	current_hp -= ammount
 	if hearts_ui_container and current_hp >= 0:
-		var heart = hearts_ui_container.get_child(current_hp)
-		heart.queue_free()
+		for i in range(ammount):
+			var heart = hearts_ui_container.get_child(current_hp+ammount-1-i)
+			heart.queue_free()
 	took_damage.emit()
 	

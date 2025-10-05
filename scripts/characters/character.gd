@@ -12,6 +12,7 @@ signal pickup(item: Item)
 @export var hands_speed: float = 1.0
 @export var item: StringName = ''
 @export var animator: AnimationPlayer
+@export var item_sprite: Sprite2D
 
 var move_direction: Vector2 = Vector2.ZERO
 var face_default_position: Vector2
@@ -28,10 +29,14 @@ func _process(delta: float) -> void:
 
 func set_item(item_name: StringName, item_body: Item = null) -> void:
 	self.item = item_name
-	if item_name.is_empty():
+	var item_resource: ItemResource = ItemManager.items.get(item_name)
+	if item_name.is_empty() or not item_resource:
 		animator.play('idle')
+		self.item = ''
 	else:
 		animator.play('with_item')
+		item_sprite.texture = item_resource.sprite
+		item_sprite.scale = Vector2.ONE * item_resource.sprite_scale
 		if item_body != null:
 			item_body.queue_free()
 	

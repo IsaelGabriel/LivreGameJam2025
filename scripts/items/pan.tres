@@ -7,6 +7,7 @@
 script = ExtResource("1_twu4l")
 item_name = &"pan"
 sprite = ExtResource("2_twu4l")
+sprite_scale = 0.5
 spin = true
 damage = 2
 metadata/_custom_type_script = "uid://dtv04ne1okr0w"

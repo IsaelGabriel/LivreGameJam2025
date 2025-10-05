@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://capxhu1j0eqrc"]
 
-[ext_resource type="Script" uid="uid://dtv04ne1okr0w" path="res://scripts/items/item_resource.gd" id="1_pidho"]
-[ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="2_6vx6y"]
+[ext_resource type="Script" uid="uid://dtv04ne1okr0w" path="res://scripts/items/item_resource.gd" id="1_qqk8v"]
+[ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="2_l8ixa"]
 
 [resource]
-script = ExtResource("1_pidho")
+script = ExtResource("1_qqk8v")
 item_name = &"ball"
-sprite = ExtResource("2_6vx6y")
+sprite = ExtResource("2_l8ixa")
+sprite_scale = 2.0
 metadata/_custom_type_script = "uid://dtv04ne1okr0w"
