@@ -8,3 +8,4 @@ This section credits all thirdparty assets used in the game.
 
 - [Shape Characters by Kenney](https://kenney.nl/assets/shape-characters)
 - [Sports Pack by Kenney](https://kenney.nl/assets/sports-pack)
+- [UI Pack by Kenney](https://kenney.nl/assets/ui-pack)
