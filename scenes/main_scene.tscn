@@ -3412,8 +3412,8 @@ metadata/_custom_type_script = "uid://cius7smr4llga"
 
 [node name="Knockback" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("damageable", "character")]
 script = ExtResource("24_u0fll")
-force = 1200.0
-duration = 0.7
+force = 500.0
+duration = 0.9
 blink_factor = 20.0
 next_state = &"move"
 damageable = NodePath("../../Damageable")
