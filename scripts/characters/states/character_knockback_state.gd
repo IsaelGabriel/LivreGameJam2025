@@ -11,11 +11,14 @@ var timer: Timer
 
 func _enter_state() -> void:
 	damageable.invincible = true
-	timer = Timer.new()
-	timer.timeout.connect(_on_timer_timeout)
-	add_child(timer)
-	timer.start(duration)
 	character.velocity = direction * force
+	if not timer:
+		timer = Timer.new()
+		timer.timeout.connect(_on_timer_timeout)
+		add_child(timer)
+	timer.start(duration)
+	
+	get_viewport().get_camera_2d().start_shake(duration)
 
 func _update_state(_delta: float) -> void:
 	character.modulate.a = sin(timer.time_left * blink_factor)

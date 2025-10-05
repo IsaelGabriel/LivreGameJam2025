@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=48 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://scripts/characters/states/character_wander_state.gd" id="18_6p3nn"]
 [ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="21_to7gp"]
 [ext_resource type="Script" uid="uid://bjahwbyyr0grn" path="res://scripts/characters/states/character_knockback_state.gd" id="24_u0fll"]
+[ext_resource type="Script" uid="uid://dbgkfp0ji17fj" path="res://scripts/camera_shake.gd" id="27_k67gn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6p3nn"]
 texture = ExtResource("8_18nlu")
@@ -3397,7 +3398,7 @@ not_ready_texture = ExtResource("8_r6p65")
 ready_texture = ExtResource("13_si52b")
 time_till_ready = 0.2
 ball_prefab = ExtResource("10_6wevv")
-item_shoot_force = 500.0
+item_shoot_force = 800.0
 speed = 175.0
 velocity_steer_factor = 15.0
 can_dash = false
@@ -3429,6 +3430,8 @@ shape = SubResource("CircleShape2D_mngbo")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(548, 739)
 zoom = Vector2(0.5, 0.5)
+script = ExtResource("27_k67gn")
+random_strength = 10.0
 
 [connection signal="has_died" from="Enemy/Damageable" to="Enemy" method="_on_damageable_has_died"]
 [connection signal="knockback" from="Enemy/Damageable" to="Enemy/StateMachine/Knockback" method="_on_damageable_knockback"]
