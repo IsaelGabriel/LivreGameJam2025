@@ -1307,7 +1307,7 @@ tile_set = SubResource("TileSet_6wevv")
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(550, 1021)
 script = ExtResource("1_gubc5")
-speed = 250.0
+speed = 350.0
 acceleration = 50.0
 velocity_steer_factor_on_move = 20.0
 metadata/_custom_type_script = "uid://t55cssr1l4t8"
@@ -1347,7 +1347,7 @@ metadata/_custom_type_script = "uid://258id666tgxc"
 [node name="Dash" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("7_c16ls")
 dash_duration = 0.3
-dash_speed = 800.0
+dash_speed = 950.0
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
