@@ -8,9 +8,11 @@ extends CharacterMoveState
 
 @export var time_till_ready: float = 1.0
 
+@export var ball_prefab: PackedScene
+@export var item_shoot_force: float = 300.0
+
 var camera: Camera2D
 var timer: Timer
-
 
 func _enter_state() -> void:
 	aim_center.visible = true
@@ -46,13 +48,18 @@ func set_aim():
 
 func shoot() -> void:
 	if timer.is_stopped():
-		# Add shot code here
-		pass
+		var ball: Ball = ball_prefab.instantiate()
+		ball.position = aim_sprite.global_position
+		ball.linear_velocity = Vector2.from_angle(aim_center.rotation) * item_shoot_force
+		ball.set_team('player')
+		get_tree().current_scene.add_child(ball)
+		character.set_item('')
 	transitioned.emit(self, 'move')
 
 func on_ready_to_shoot() -> void:
 	aim_sprite.texture = ready_texture
 	aim_sprite.modulate.a = 1
+	timer.stop()
 
 func _exit_state() -> void:
 	aim_center.visible = false

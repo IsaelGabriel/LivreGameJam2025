@@ -57,6 +57,7 @@ p_aim={
 
 2d_physics/layer_1="Player body"
 2d_physics/layer_2="Enemy body"
+2d_physics/layer_3="Item"
 
 [rendering]
 

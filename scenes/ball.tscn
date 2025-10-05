@@ -7,6 +7,7 @@
 radius = 13.038404
 
 [node name="Ball" type="RigidBody2D" groups=["ball", "item"]]
+collision_mask = 4
 gravity_scale = 0.0
 script = ExtResource("1_cxlvu")
 item_name = &"ball"
