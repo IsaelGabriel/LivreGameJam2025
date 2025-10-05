@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bmg6s65xqmx5w"]
+[gd_scene load_steps=20 format=4 uid="uid://bmg6s65xqmx5w"]
 
 [ext_resource type="Texture2D" uid="uid://dymjxfejqg2e5" path="res://thirdparty/kenney_sports-pack/Tilesheet/groundBeige_blue.png" id="1_wqhvx"]
 [ext_resource type="Texture2D" uid="uid://dudr81dsutc4d" path="res://thirdparty/kenney_sports-pack/Tilesheet/groundTarmac.png" id="2_tbwuq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cgvo6mgu5jiyk" path="res://scripts/ui/random_text.gd" id="4_racf3"]
 [ext_resource type="Script" uid="uid://cf6rofsrqiwsp" path="res://scripts/ui/scene_transitioner.gd" id="5_7m3ot"]
 [ext_resource type="PackedScene" uid="uid://dda6cja1fko3s" path="res://scenes/main_scene.tscn" id="6_v3hpu"]
+[ext_resource type="Script" uid="uid://dl35m6ttgk7a1" path="res://scripts/ui/fade_panel.gd" id="7_irg28"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_racf3"]
 texture = ExtResource("1_wqhvx")
@@ -2360,6 +2361,17 @@ shadow_size = 10
 shadow_color = Color(0, 0.67, 0.44666672, 1)
 shadow_offset = Vector2(0, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jtsn"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -2451,3 +2463,15 @@ script = ExtResource("5_7m3ot")
 wait = 1.25
 next_scene = ExtResource("6_v3hpu")
 text = NodePath("../Text2")
+
+[node name="FadePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2jtsn")
+script = ExtResource("7_irg28")
+duration = 3.0
