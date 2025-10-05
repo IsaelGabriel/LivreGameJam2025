@@ -1,11 +1,13 @@
-[gd_scene load_steps=31 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=33 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
 [ext_resource type="Texture2D" uid="uid://copo22duf2rnf" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/face_d.png" id="2_7ykc4"]
 [ext_resource type="Texture2D" uid="uid://dudr81dsutc4d" path="res://thirdparty/kenney_sports-pack/Tilesheet/groundTarmac.png" id="2_c1pb6"]
 [ext_resource type="Texture2D" uid="uid://dunm6wfj5kglu" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_open.png" id="3_pu3yx"]
+[ext_resource type="Script" uid="uid://cxqm42u0sbbsw" path="res://scripts/damageable.gd" id="4_01n6w"]
 [ext_resource type="Script" uid="uid://bbtrak21ioymu" path="res://scripts/state_machine.gd" id="4_pu3yx"]
+[ext_resource type="PackedScene" uid="uid://82nmr87vhw8w" path="res://scenes/heart.tscn" id="5_6u1mn"]
 [ext_resource type="Script" uid="uid://cius7smr4llga" path="res://scripts/characters/states/character_move_state.gd" id="6_rt2n2"]
 [ext_resource type="Script" uid="uid://ch4qn1210gsa0" path="res://scripts/characters/states/character_dash_state.gd" id="7_c16ls"]
 [ext_resource type="Texture2D" uid="uid://c8gbudmhbexwm" path="res://thirdparty/kenney_sports-pack/PNG/Equipment/ball_volley2.png" id="7_e1cbu"]
@@ -2536,6 +2538,14 @@ radius = 67.00746
 
 [node name="MainScene" type="Node2D"]
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerHeartsContainer" type="HBoxContainer" parent="UI"]
+layout_direction = 2
+offset_top = 586.0
+offset_right = 64.0
+offset_bottom = 650.0
+
 [node name="Map" type="Node2D" parent="."]
 
 [node name="EnemySideCourt" type="TileMapLayer" parent="Map"]
@@ -2561,6 +2571,11 @@ hands_weight = 3.0
 hands_speed = 15.0
 animator = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://t55cssr1l4t8"
+
+[node name="Damageable" type="Node" parent="Player" node_paths=PackedStringArray("hearts_ui_container")]
+script = ExtResource("4_01n6w")
+hearts_ui_container = NodePath("../../UI/PlayerHeartsContainer")
+heart_prefab = ExtResource("5_6u1mn")
 
 [node name="Visuals" type="Node2D" parent="Player"]
 

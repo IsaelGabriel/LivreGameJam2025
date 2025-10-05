@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://82nmr87vhw8w"]
+
+[ext_resource type="Texture2D" uid="uid://c4y2h1c3abwmu" path="res://thirdparty/kenney_assets/kenney_new-platformer-pack-1.0/Sprites/Tiles/Default/hud_heart.png" id="1_v30as"]
+
+[node name="Heart" type="TextureRect"]
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_v30as")
