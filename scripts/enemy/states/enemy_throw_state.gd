@@ -12,4 +12,4 @@ func _enter_state() -> void:
 	ball.position = character.position + throw_direction * throw_offset
 	get_tree().current_scene.add_child(ball)
 	ball.linear_velocity = throw_direction * throw_force
-	transitioned.emit(self, 'wait')
+	transitioned.emit(self, 'wander')

@@ -17,14 +17,16 @@ func set_team(team: StringName):
 		'enemy':
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
-	
 
-
-func _on_body_entered(body: Node) -> void:
+func _on_collision(body: Node):
 	if body is Character:
 		var damageable: Damageable = body.get_node('Damageable')
-		if damageable and not damageable.invincible and linear_velocity.length() >= max_pickup_velocity:
+		if damageable and modulate.b < 0.5 and not damageable.invincible:
+			print(linear_velocity)
 			damageable.take_damage()
 			damageable.knockback.emit((body.position - position).normalized())
 			queue_free()
+
+func _on_body_entered(body: Node) -> void:
+	_on_collision(body)
 			

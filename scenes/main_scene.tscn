@@ -1,11 +1,11 @@
-[gd_scene load_steps=45 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=47 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
 [ext_resource type="Texture2D" uid="uid://copo22duf2rnf" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/face_d.png" id="2_7ykc4"]
 [ext_resource type="Texture2D" uid="uid://dudr81dsutc4d" path="res://thirdparty/kenney_sports-pack/Tilesheet/groundTarmac.png" id="2_c1pb6"]
+[ext_resource type="Script" uid="uid://b2olbwcv6a8fj" path="res://scripts/enemy/enemy.gd" id="3_6p3nn"]
 [ext_resource type="Texture2D" uid="uid://dunm6wfj5kglu" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_open.png" id="3_pu3yx"]
-[ext_resource type="Script" uid="uid://t55cssr1l4t8" path="res://scripts/characters/character.gd" id="3_xdqt8"]
 [ext_resource type="Script" uid="uid://cxqm42u0sbbsw" path="res://scripts/damageable.gd" id="4_01n6w"]
 [ext_resource type="Script" uid="uid://bbtrak21ioymu" path="res://scripts/state_machine.gd" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://82nmr87vhw8w" path="res://scenes/heart.tscn" id="5_6u1mn"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://d123qj31oxjuk" path="res://thirdparty/kenney_assets/kenney_ui-pack/PNG/Red/Default/arrow_decorative_e_small.png" id="13_si52b"]
 [ext_resource type="Script" uid="uid://xxpuxc62iteh" path="res://scripts/enemy/states/enemy_throw_state.gd" id="15_to7gp"]
 [ext_resource type="Texture2D" uid="uid://ce3qeycmseiyh" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/red_hand_rock.png" id="17_to7gp"]
+[ext_resource type="Script" uid="uid://cg5ddrs8v0dma" path="res://scripts/characters/states/character_wander_state.gd" id="18_6p3nn"]
 [ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="21_to7gp"]
 [ext_resource type="Script" uid="uid://bjahwbyyr0grn" path="res://scripts/characters/states/character_knockback_state.gd" id="24_u0fll"]
 
@@ -2151,8 +2152,8 @@ physics_layer_0/collision_mask = 16
 sources/2 = SubResource("TileSetAtlasSource_mngbo")
 sources/3 = SubResource("TileSetAtlasSource_4w45t")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7ykc4"]
-radius = 38.013157
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p3nn"]
+size = Vector2(84, 84)
 
 [sub_resource type="Animation" id="Animation_xdqt8"]
 resource_name = "idle"
@@ -2568,6 +2569,9 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mngbo"]
 radius = 67.00746
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ykc4"]
+radius = 38.013157
 
 [sub_resource type="Animation" id="Animation_4w45t"]
 length = 0.001
@@ -2990,8 +2994,9 @@ tile_set = SubResource("TileSet_r6p65")
 [node name="Enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("face", "hands", "animator")]
 position = Vector2(550, 504)
 collision_layer = 2
-collision_mask = 26
-script = ExtResource("3_xdqt8")
+collision_mask = 42
+motion_mode = 1
+script = ExtResource("3_6p3nn")
 face = NodePath("Visuals/Face")
 hands = NodePath("Visuals/Hands")
 item = &"ball"
@@ -3000,6 +3005,7 @@ metadata/_custom_type_script = "uid://t55cssr1l4t8"
 
 [node name="Damageable" type="Node" parent="Enemy" node_paths=PackedStringArray("hearts_ui_container")]
 script = ExtResource("4_01n6w")
+max_hp = 10
 hearts_ui_container = NodePath("../../UI/EnemyHeartsContainer")
 heart_prefab = ExtResource("5_6u1mn")
 
@@ -3037,17 +3043,16 @@ scale = Vector2(1.75, 1.75)
 texture = ExtResource("8_r6p65")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-visible = false
-shape = SubResource("CircleShape2D_7ykc4")
+shape = SubResource("RectangleShape2D_6p3nn")
 
 [node name="StateMachine" type="Node" parent="Enemy" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_pu3yx")
-initial_state = NodePath("Wait")
+initial_state = NodePath("Wander")
 metadata/_custom_type_script = "uid://bbtrak21ioymu"
 
 [node name="Wait" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("12_58gk3")
-time = 25.0
+time = 2.0
 next_state = &"throw"
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
@@ -3060,7 +3065,7 @@ metadata/_custom_type_script = "uid://258id666tgxc"
 [node name="Dash" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("7_c16ls")
 dash_duration = 0.3
-dash_speed = 950.0
+dash_speed = 2500.0
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
@@ -3083,6 +3088,18 @@ damageable = NodePath("../../Damageable")
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
+[node name="Wander" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
+script = ExtResource("18_6p3nn")
+next_state_weighted = Dictionary[StringName, float]({
+&"dash": 1.0,
+&"wait": 1.5
+})
+speed = 400.0
+acceleration = 25.0
+can_dash = false
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://cius7smr4llga"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 libraries = {
 &"": SubResource("AnimationLibrary_58gk3")
@@ -3097,6 +3114,7 @@ shape = SubResource("CircleShape2D_mngbo")
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("face", "hands", "animator")]
 position = Vector2(550, 1021)
 collision_mask = 49
+motion_mode = 1
 script = ExtResource("1_gubc5")
 face = NodePath("Visuals/Face")
 face_weight = 1.75
@@ -3209,6 +3227,8 @@ zoom = Vector2(0.5, 0.5)
 [node name="Ball" parent="." instance=ExtResource("10_6wevv")]
 position = Vector2(548, 876)
 
+[connection signal="knockback" from="Enemy/Damageable" to="Enemy/StateMachine/Knockback" method="_on_damageable_knockback"]
+[connection signal="took_damage" from="Enemy/Damageable" to="Enemy" method="_on_damageable_took_damage"]
 [connection signal="pickup" from="Player" to="Player/StateMachine/Move" method="_on_player_pickup"]
 [connection signal="knockback" from="Player/Damageable" to="Player/StateMachine/Knockback" method="_on_damageable_knockback"]
 [connection signal="took_damage" from="Player/Damageable" to="Player" method="_on_damageable_took_damage"]
