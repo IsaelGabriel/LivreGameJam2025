@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=8 format=3 uid="uid://dda6cja1fko3s"]
 
+[ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
 [ext_resource type="Texture2D" uid="uid://copo22duf2rnf" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/face_d.png" id="2_7ykc4"]
 [ext_resource type="Texture2D" uid="uid://dunm6wfj5kglu" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_open.png" id="3_pu3yx"]
+[ext_resource type="Script" uid="uid://bbtrak21ioymu" path="res://scripts/state_machine.gd" id="4_pu3yx"]
+[ext_resource type="Script" uid="uid://cius7smr4llga" path="res://scripts/characters/states/character_move_state.gd" id="6_rt2n2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ykc4"]
 radius = 38.013157
@@ -10,6 +13,11 @@ radius = 38.013157
 [node name="MainScene" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_gubc5")
+speed = 250.0
+acceleration = 50.0
+velocity_steer_factor_on_move = 20.0
+metadata/_custom_type_script = "uid://t55cssr1l4t8"
 
 [node name="Visuals" type="Node2D" parent="Player"]
 
@@ -32,3 +40,13 @@ flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_7ykc4")
+
+[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_pu3yx")
+initial_state = NodePath("Move")
+metadata/_custom_type_script = "uid://bbtrak21ioymu"
+
+[node name="Move" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("character")]
+script = ExtResource("6_rt2n2")
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://258id666tgxc"
