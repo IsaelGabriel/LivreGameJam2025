@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=43 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
@@ -19,9 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://qbd8b5h7juqm" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/red_hand_closed.png" id="9_adb74"]
 [ext_resource type="PackedScene" uid="uid://ckab6ulfkg1vh" path="res://scenes/ball.tscn" id="10_6wevv"]
 [ext_resource type="Texture2D" uid="uid://csppqhl7itvul" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_hand_closed.png" id="11_mngbo"]
-[ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="12_r6p65"]
+[ext_resource type="Script" uid="uid://b5m0wu034wb2p" path="res://scripts/characters/states/character_wait_state.gd" id="12_58gk3"]
 [ext_resource type="Texture2D" uid="uid://d123qj31oxjuk" path="res://thirdparty/kenney_assets/kenney_ui-pack/PNG/Red/Default/arrow_decorative_e_small.png" id="13_si52b"]
 [ext_resource type="Texture2D" uid="uid://ce3qeycmseiyh" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/red_hand_rock.png" id="17_to7gp"]
+[ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="21_to7gp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18nlu"]
 texture = ExtResource("8_18nlu")
@@ -3030,8 +3031,14 @@ shape = SubResource("CircleShape2D_7ykc4")
 
 [node name="StateMachine" type="Node" parent="Enemy" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_pu3yx")
-initial_state = NodePath("Move")
+initial_state = NodePath("Wait")
 metadata/_custom_type_script = "uid://bbtrak21ioymu"
+
+[node name="Wait" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
+script = ExtResource("12_58gk3")
+time = 2.0
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://258id666tgxc"
 
 [node name="Move" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("6_rt2n2")
@@ -3128,7 +3135,7 @@ character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
 [node name="Aim" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("aim_center", "aim_sprite", "character")]
-script = ExtResource("12_r6p65")
+script = ExtResource("21_to7gp")
 aim_center = NodePath("../../Visuals/AimCenter")
 aim_sprite = NodePath("../../Visuals/AimCenter/Aim")
 not_ready_texture = ExtResource("8_r6p65")
