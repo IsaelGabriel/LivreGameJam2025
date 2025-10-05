@@ -20,6 +20,7 @@ var hands_default_position: Vector2
 func _ready():
 	face_default_position = face.position
 	hands_default_position = hands.position
+	set_item(item)
 
 func _process(delta: float) -> void:
 	face.position = lerp(face.position, face_default_position + velocity * 0.01 * face_weight, delta * face_speed)
@@ -31,6 +32,6 @@ func set_item(item_name: StringName, item_body: Item = null) -> void:
 		animator.play('idle')
 	else:
 		animator.play('with_item')
-		if item != null:
+		if item_body != null:
 			item_body.queue_free()
 	
