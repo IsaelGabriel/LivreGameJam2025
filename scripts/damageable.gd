@@ -2,6 +2,7 @@ extends Node
 class_name Damageable
 
 signal took_damage
+signal knockback(direction: Vector2)
 
 @export var max_hp: int = 3
 @export var hearts_ui_container: Control

@@ -6,5 +6,7 @@ class_name CharacterState
 func _ready() -> void:
 	character.character_signal.connect(_on_character_signal)
 	
-func _on_character_signal(_command: StringName):
-	pass
+func _on_character_signal(command: StringName):
+	match command:
+		'damage':
+			transitioned.emit(self, 'knockback')

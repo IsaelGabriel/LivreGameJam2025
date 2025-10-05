@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://dda6cja1fko3s"]
+[gd_scene load_steps=45 format=4 uid="uid://dda6cja1fko3s"]
 
 [ext_resource type="Script" uid="uid://bp77gi5y8gren" path="res://scripts/player/player.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://5gcde3i6jddp" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/blue_body_rhombus.png" id="1_w2twt"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://xxpuxc62iteh" path="res://scripts/enemy/states/enemy_throw_state.gd" id="15_to7gp"]
 [ext_resource type="Texture2D" uid="uid://ce3qeycmseiyh" path="res://thirdparty/kenney_assets/Shape Characters/PNG/Default/red_hand_rock.png" id="17_to7gp"]
 [ext_resource type="Script" uid="uid://clsgu0i2oty6j" path="res://scripts/player/player_aim_state.gd" id="21_to7gp"]
+[ext_resource type="Script" uid="uid://bjahwbyyr0grn" path="res://scripts/characters/states/character_knockback_state.gd" id="24_u0fll"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18nlu"]
 texture = ExtResource("8_18nlu")
@@ -2966,6 +2967,12 @@ offset_top = 586.0
 offset_right = 64.0
 offset_bottom = 650.0
 
+[node name="EnemyHeartsContainer" type="HBoxContainer" parent="UI"]
+layout_direction = 3
+offset_right = 64.0
+offset_bottom = 64.0
+alignment = 2
+
 [node name="Map" type="Node2D" parent="."]
 
 [node name="EnemySideCourt" type="TileMapLayer" parent="Map"]
@@ -2991,8 +2998,9 @@ item = &"ball"
 animator = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://t55cssr1l4t8"
 
-[node name="Damageable" type="Node" parent="Enemy"]
+[node name="Damageable" type="Node" parent="Enemy" node_paths=PackedStringArray("hearts_ui_container")]
 script = ExtResource("4_01n6w")
+hearts_ui_container = NodePath("../../UI/EnemyHeartsContainer")
 heart_prefab = ExtResource("5_6u1mn")
 
 [node name="Visuals" type="Node2D" parent="Enemy"]
@@ -3039,7 +3047,7 @@ metadata/_custom_type_script = "uid://bbtrak21ioymu"
 
 [node name="Wait" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("character")]
 script = ExtResource("12_58gk3")
-time = 0.5
+time = 25.0
 next_state = &"throw"
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
@@ -3062,6 +3070,16 @@ throw_force = 550.0
 throw_offset = 75.0
 target = NodePath("../../../Player")
 ball_prefab = ExtResource("10_6wevv")
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://258id666tgxc"
+
+[node name="Knockback" type="Node" parent="Enemy/StateMachine" node_paths=PackedStringArray("damageable", "character")]
+script = ExtResource("24_u0fll")
+force = 1200.0
+duration = 0.7
+blink_factor = 20.0
+next_state = &"wait"
+damageable = NodePath("../../Damageable")
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://258id666tgxc"
 
@@ -3163,6 +3181,16 @@ can_dash = false
 character = NodePath("../..")
 metadata/_custom_type_script = "uid://cius7smr4llga"
 
+[node name="Knockback" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("damageable", "character")]
+script = ExtResource("24_u0fll")
+force = 1200.0
+duration = 0.7
+blink_factor = 20.0
+next_state = &"move"
+damageable = NodePath("../../Damageable")
+character = NodePath("../..")
+metadata/_custom_type_script = "uid://258id666tgxc"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
 &"": SubResource("AnimationLibrary_r6p65")
@@ -3182,4 +3210,6 @@ zoom = Vector2(0.5, 0.5)
 position = Vector2(548, 876)
 
 [connection signal="pickup" from="Player" to="Player/StateMachine/Move" method="_on_player_pickup"]
+[connection signal="knockback" from="Player/Damageable" to="Player/StateMachine/Knockback" method="_on_damageable_knockback"]
+[connection signal="took_damage" from="Player/Damageable" to="Player" method="_on_damageable_took_damage"]
 [connection signal="body_entered" from="Player/PickupArea" to="Player" method="_on_pickup_area_body_entered"]

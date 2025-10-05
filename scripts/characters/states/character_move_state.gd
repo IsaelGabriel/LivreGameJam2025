@@ -22,8 +22,11 @@ func _physics_update_state(delta: float) -> void:
 
 
 func _on_character_signal(command: StringName):
-	if command == 'dash' and can_dash:
-		transitioned.emit(self, 'dash')
+	super._on_character_signal(command)
+	match command:
+		'dash':
+			if can_dash:
+				transitioned.emit(self, 'dash')
 	
 func _on_player_pickup(item: Item) -> void:
 	character.set_item(item.item_name, item)

@@ -13,3 +13,7 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is Item and item.is_empty():
 		if body.is_item_pickable():
 			pickup.emit(body)
+
+
+func _on_damageable_took_damage() -> void:
+	character_signal.emit('damage')

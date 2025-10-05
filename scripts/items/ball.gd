@@ -21,9 +21,10 @@ func set_team(team: StringName):
 
 
 func _on_body_entered(body: Node) -> void:
-	print(body.name)
 	if body is Character:
 		var damageable: Damageable = body.get_node('Damageable')
-		if damageable and not damageable.invincible and not is_item_pickable():
+		if damageable and not damageable.invincible and linear_velocity.length() >= max_pickup_velocity:
 			damageable.take_damage()
+			damageable.knockback.emit((body.position - position).normalized())
 			queue_free()
+			
